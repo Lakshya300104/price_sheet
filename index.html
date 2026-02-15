@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Academic Support — Pricing & Guidance</title>
+
+  <style>
+    :root{
+      --bg1:#f6f8fc;
+      --bg2:#ffffff;
+      --card:#ffffff;
+      --text:#1f2a37;
+      --muted:#526170;    /* slightly softer */
+      --muted2:#6b7b8c;   /* slightly softer */
+      --border: rgba(31,42,55,0.10);
+      --border2: rgba(31,42,55,0.08);
+
+      --accent:#2563eb;
+      --accentSoft: rgba(37,99,235,0.10);
+
+      --accent2:#10b981;
+      --accent2Soft: rgba(16,185,129,0.12);
+
+      --warn:#f59e0b;
+      --warnSoft: rgba(245,158,11,0.12);
+
+      --shadow: 0 14px 40px rgba(2,6,23,0.10);
+      --shadow2: 0 6px 18px rgba(2,6,23,0.08);
+
+      --radius: 16px;
+      --radiusSm: 12px;
+      --max: 1120px;
+
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family: var(--sans);
+      color: var(--text);
+      background:
+        radial-gradient(900px 500px at 10% 10%, rgba(37,99,235,0.10), transparent 60%),
+        radial-gradient(800px 500px at 90% 0%, rgba(16,185,129,0.10), transparent 55%),
+        radial-gradient(900px 700px at 70% 100%, rgba(245,158,11,0.08), transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+    }
+    a{ color:inherit; text-decoration:none; }
+    .wrap{ max-width:var(--max); margin:0 auto; padding:22px 18px 60px; }
+
+    /* Topbar / Navbar */
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between; gap:14px;
+      padding:12px 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.80);
+      box-shadow: var(--shadow2);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 12px;
+      z-index: 50;
+    }
+    .brand{ display:flex; flex-direction:column; gap:2px; min-width: 170px; }
+    .brand .name{ font-weight:900; letter-spacing:.2px; }
+    .brand .tag{ font-size:12.5px; color: var(--muted2); }
+
+    nav{
+      display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:center;
+    }
+    .navlink{
+      font-size: 13px;
+      color: var(--muted);
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: background .15s ease, border-color .15s ease, transform .15s ease;
+      white-space: nowrap;
+    }
+    .navlink:hover{
+      background: rgba(37,99,235,0.08);
+      border-color: rgba(37,99,235,0.20);
+      transform: translateY(-1px);
+      color: var(--text);
+    }
+
+    .contacts{
+      display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;
+      font-size:13px; color: var(--muted);
+    }
+    .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 10px;
+      border: 1px solid var(--border2);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.92);
+      box-shadow: 0 1px 0 rgba(2,6,23,0.04);
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+      white-space: nowrap;
+    }
+    .chip:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(2,6,23,0.10);
+      border-color: rgba(37,99,235,0.22);
+    }
+    .dot{
+      width:8px; height:8px; border-radius:999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(37,99,235,0.12);
+      flex:0 0 auto;
+    }
+
+    /* Sections */
+    .section{
+      margin-top: 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.86);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .section .head{
+      padding:16px 18px 10px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.82));
+    }
+    .section .head h2{
+      margin:0;
+      font-size: 16px;
+      letter-spacing:.1px;
+    }
+    .section .head p{
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 92ch;
+      font-size: 14.5px;
+    }
+    .section .body{ padding: 16px 18px 18px; }
+
+    /* Hero */
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 14px;
+      align-items: start;
+    }
+    @media (max-width: 980px){
+      .topbar{ align-items:flex-start; }
+      nav{ justify-content:flex-start; }
+      .heroGrid{ grid-template-columns: 1fr; }
+      .contacts{ justify-content:flex-start; }
+      .brand{ min-width:auto; }
+    }
+    .heroTitle{
+      margin:0 0 10px;
+      font-size: clamp(24px, 2.8vw, 36px);
+      line-height: 1.12;
+      letter-spacing: .1px;
+      font-weight: 950;
+    }
+    .heroText{
+      margin:0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 15.5px;
+      max-width: 82ch;
+    }
+    .ctaRow{
+      margin-top: 14px;
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.92);
+      color: var(--text);
+      cursor:pointer;
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+      user-select:none;
+      box-shadow: 0 1px 0 rgba(2,6,23,0.04);
+      font-weight: 800;
+      font-size: 13.5px;
+      white-space: nowrap;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 12px 26px rgba(2,6,23,0.10);
+      border-color: rgba(37,99,235,0.22);
+    }
+    .btnPrimary{
+      background: linear-gradient(180deg, rgba(37,99,235,0.14), rgba(37,99,235,0.08));
+      border-color: rgba(37,99,235,0.22);
+      color: #0b2a78;
+    }
+    .btnGreen{
+      background: linear-gradient(180deg, rgba(16,185,129,0.14), rgba(16,185,129,0.08));
+      border-color: rgba(16,185,129,0.22);
+      color: #0b5a3f;
+    }
+
+    /* Feature cards */
+    .tiles{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+    @media (max-width: 900px){ .tiles{ grid-template-columns: 1fr; } }
+    .tile{
+      border: 1px solid var(--border);
+      border-radius: var(--radiusSm);
+      background: rgba(255,255,255,0.92);
+      padding: 14px;
+      box-shadow: 0 1px 0 rgba(2,6,23,0.04);
+    }
+    .tile h3{ margin:0 0 6px; font-size: 14px; font-weight: 950; }
+    .tile p{ margin:0; color: var(--muted); line-height:1.6; font-size: 13.5px; }
+
+    /* Stats */
+    .stats{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+    @media (max-width: 900px){ .stats{ grid-template-columns: 1fr; } }
+    .stat{
+      border: 1px solid var(--border);
+      border-radius: var(--radiusSm);
+      background: rgba(255,255,255,0.92);
+      padding: 14px;
+      box-shadow: 0 1px 0 rgba(2,6,23,0.04);
+    }
+    .stat .num{
+      font-size: 22px;
+      font-weight: 980;
+      letter-spacing: .2px;
+      color: var(--accent);
+    }
+    .stat .lbl{
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.5;
+    }
+    .hint{
+      margin-top: 10px;
+      color: var(--muted2);
+      font-size: 12.5px;
+      line-height: 1.6;
+    }
+
+    /* Testimonials */
+    .quotes{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+    @media (max-width: 900px){ .quotes{ grid-template-columns: 1fr; } }
+    .quote{
+      border: 1px solid var(--border);
+      border-radius: var(--radiusSm);
+      background: rgba(255,255,255,0.92);
+      padding: 14px;
+      box-shadow: 0 1px 0 rgba(2,6,23,0.04);
+    }
+    .quote .text{
+      margin:0;
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 13.8px;
+    }
+    .quote .who{
+      margin-top: 10px;
+      color: var(--muted2);
+      font-size: 12.5px;
+      font-family: var(--mono);
+    }
+
+    /* Pricing layout */
+    .pricingGrid{
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap: 14px;
+      align-items: start;
+    }
+    @media (max-width: 980px){ .pricingGrid{ grid-template-columns: 1fr; } }
+
+    .panel{
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.92);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+    }
+    .panel .phead{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
+      padding:14px 16px 12px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.82));
+    }
+    .panel .phead h3{ margin:0; font-size: 15px; font-weight: 950; }
+    .panel .phead span{ font-family: var(--mono); font-size: 12px; color: var(--muted2); }
+    .panel .pbody{ padding: 14px 16px 16px; }
+
+    .tools{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      margin-bottom: 12px;
+    }
+    .search{
+      flex:1 1 420px;
+      display:flex; align-items:center; gap:10px;
+      padding:12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.95);
+      box-shadow: 0 1px 0 rgba(2,6,23,0.04);
+    }
+    .search input{
+      width:100%; border:none; outline:none; background:transparent;
+      color: var(--text); font-size: 14.5px;
+    }
+    .search input::placeholder{ color: rgba(71,85,105,0.70); }
+
+    /* Accordion */
+    details.accordion{
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.95);
+      margin-bottom: 10px;
+      overflow:hidden;
+    }
+    details.accordion[open]{
+      border-color: rgba(37,99,235,0.22);
+      box-shadow: 0 12px 22px rgba(2,6,23,0.08);
+    }
+    summary.acc-head{
+      list-style:none;
+      cursor:pointer;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding: 14px;
+      user-select:none;
+    }
+    summary.acc-head::-webkit-details-marker{ display:none; }
+    .acc-title{ display:flex; flex-direction:column; gap:3px; }
+    .acc-title strong{ font-size: 14px; font-weight: 950; }
+    .acc-title span{ font-size: 12.5px; color: var(--muted2); }
+    .acc-right{ display:flex; align-items:center; gap:10px; }
+    .badge{
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(37,99,235,0.06);
+      white-space: nowrap;
+    }
+    .chev{
+      width:34px; height:34px; border-radius: 12px;
+      display:grid; place-items:center;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.98);
+      transition: transform .2s ease;
+    }
+    details[open] .chev{ transform: rotate(180deg); }
+    .acc-body{ padding: 0 14px 14px; }
+
+    .group-title{
+      margin: 12px 0 8px;
+      font-weight: 950;
+      font-size: 13.5px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed rgba(15,23,42,0.18);
+      color: rgba(15,23,42,0.92);
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 10px;
+    }
+    @media (max-width: 700px){ .cards{ grid-template-columns: 1fr; } }
+
+    .card{
+      border: 1px solid var(--border);
+      border-radius: var(--radiusSm);
+      background: rgba(255,255,255,0.95);
+      padding: 12px;
+      display:flex; align-items:flex-start; justify-content:space-between; gap: 14px;
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+      box-shadow: 0 1px 0 rgba(2,6,23,0.04);
+      min-height: 64px;
+    }
+    .card:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 14px 26px rgba(2,6,23,0.10);
+      border-color: rgba(37,99,235,0.22);
+    }
+    .left{ display:flex; flex-direction:column; gap:4px; min-width:0; }
+    .title{
+      font-weight: 950;
+      font-size: 14px;
+      line-height: 1.25;
+      white-space: nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+      max-width: 48ch;
+    }
+    .meta{ font-size: 12.5px; color: var(--muted2); display:flex; gap:8px; flex-wrap:wrap; }
+    .pill{
+      font-family: var(--mono);
+      font-size: 11.5px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(15,23,42,0.04);
+      color: rgba(15,23,42,0.78);
+    }
+    .price{
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--accent);
+      background: var(--accentSoft);
+      border: 1px solid rgba(37,99,235,0.22);
+      padding: 6px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+      flex: 0 0 auto;
+      font-weight: 950;
+    }
+
+    /* Summary card */
+    .kpi{
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.95);
+      padding: 14px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 0 rgba(2,6,23,0.04);
+    }
+    .kpi .label{ color: var(--muted2); font-size: 12.5px; margin-bottom: 6px; }
+    .kpi .value{ font-size: 15px; font-weight: 950; }
+    .kpi .value code{
+      font-family: var(--mono);
+      font-weight: 900;
+      font-size: 13px;
+      padding: 2px 6px;
+      border-radius: 8px;
+      background: rgba(15,23,42,0.04);
+      border: 1px solid var(--border);
+    }
+
+    .no-results{
+      display:none;
+      margin-top: 10px;
+      border: 1px solid rgba(245,158,11,0.25);
+      background: var(--warnSoft);
+      border-radius: var(--radius);
+      padding: 14px;
+      color: rgba(15,23,42,0.92);
+    }
+    .no-results strong{ color: rgba(15,23,42,1); }
+
+    /* Contact */
+    .contactGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    @media (max-width: 900px){ .contactGrid{ grid-template-columns: 1fr; } }
+
+    .contactCard{
+      border: 1px solid var(--border);
+      border-radius: var(--radiusSm);
+      background: rgba(255,255,255,0.95);
+      padding: 14px;
+      box-shadow: 0 1px 0 rgba(2,6,23,0.04);
+    }
+    .contactCard h3{ margin:0 0 6px; font-size: 14px; font-weight: 950; }
+    .contactCard p{ margin:0; color: var(--muted); font-size: 13.5px; line-height: 1.6; }
+    .waRow{ margin-top: 10px; display:flex; gap:10px; flex-wrap:wrap; }
+
+    .footerNote{
+      margin-top: 12px;
+      color: var(--muted2);
+      font-size: 12.5px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="name">Academic Support</div>
+        <div class="tag">Guidance, structure, editing, and clarity — plus transparent pricing.</div>
+      </div>
+
+      <nav aria-label="Primary">
+        <a class="navlink" href="#home">Home</a>
+        <a class="navlink" href="#services">Services</a>
+        <a class="navlink" href="#results">Results</a>
+        <a class="navlink" href="#testimonials">Testimonials</a>
+        <a class="navlink" href="#pricing">Pricing</a>
+        <a class="navlink" href="#contact">Contact</a>
+      </nav>
+
+      <div class="contacts" aria-label="Contacts">
+        <a class="chip" href="tel:+918209338646" title="Call Lakshya Arora">
+          <span class="dot"></span>
+          <span><strong>Lakshya Arora</strong> · +91 8209338646</span>
+        </a>
+        <a class="chip" href="tel:+918218709184" title="Call Sukriti Shukla">
+          <span class="dot" style="background:var(--accent2);box-shadow:0 0 0 4px rgba(16,185,129,0.12);"></span>
+          <span><strong>Sukriti Shukla</strong> · +91 8218709184</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- HOME -->
+    <section class="section" id="home">
+      <div class="head">
+        <h2>High-quality academic support that feels simple.</h2>
+        <p>
+          If you’re stuck with structure, research, analysis, diagrams, or word-limit polishing — we help you move fast,
+          stay organized, and submit a clean, well-presented final draft. We focus on coaching + feedback + refinement
+          (not shortcut “copy-paste” work).
+        </p>
+      </div>
+      <div class="body">
+        <div class="heroGrid">
+          <div>
+            <h1 class="heroTitle">Turn messy drafts into clean submissions.</h1>
+            <p class="heroText">
+              Clear plan → strong structure → better writing → IB-style presentation. We can help you with topic selection,
+              outlines, improving arguments, editing, citations formatting, data/graphs, and checklist-based polishing.
+            </p>
+            <div class="ctaRow">
+              <a class="btn btnPrimary" href="#pricing">View Pricing</a>
+              <a class="btn btnGreen" href="#contact">Chat on WhatsApp</a>
+              <a class="btn" href="#services">What we do</a>
+            </div>
+
+            <div class="hint">
+              Note: We provide guidance and drafting support. Final submission must reflect the student’s own understanding and voice.
+            </div>
+          </div>
+
+          <div class="tiles">
+            <div class="tile">
+              <h3>Fast clarity</h3>
+              <p>We remove confusion with a structured plan, exact edits, and what-to-do-next steps.</p>
+            </div>
+            <div class="tile">
+              <h3>Better presentation</h3>
+              <p>Clean formatting, diagrams guidance, citations consistency, and submission-ready polish.</p>
+            </div>
+            <div class="tile">
+              <h3>Real feedback</h3>
+              <p>We focus on what improves marks: argument quality, evidence, structure, and reflection.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="section" id="services">
+      <div class="head">
+        <h2>Services</h2>
+        <p>
+          Practical help across research, writing, and presentation. Choose a full package or just fix one painful part.
+        </p>
+      </div>
+      <div class="body">
+        <div class="tiles">
+          <div class="tile">
+            <h3>Topic + outline</h3>
+            <p>Strong RQ, clear scope, and a plan that fits word limits and marking expectations.</p>
+          </div>
+          <div class="tile">
+            <h3>Editing + restructuring</h3>
+            <p>Fix flow, repetition, weak analysis, and unclear writing while keeping your voice.</p>
+          </div>
+          <div class="tile">
+            <h3>Data, graphs, diagrams</h3>
+            <p>Help with what graphs to use, what to show, and how to present it cleanly.</p>
+          </div>
+          <div class="tile">
+            <h3>Citations + formatting</h3>
+            <p>Consistent in-text citations/footnotes + bibliography formatting (where required).</p>
+          </div>
+          <div class="tile">
+            <h3>Marking-style review</h3>
+            <p>Detailed feedback: what costs marks, what to cut, and what to strengthen.</p>
+          </div>
+          <div class="tile">
+            <h3>Last-mile polish</h3>
+            <p>Word-limit tightening, clarity upgrades, grammar fixes, and final consistency checks.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULTS / STATS -->
+    <section class="section" id="results">
+      <div class="head">
+        <h2>Results</h2>
+        
+      </div>
+      <div class="body">
+        <div class="stats">
+          <div class="stat">
+            <div class="num">70+</div>
+            <div class="lbl">students supported </div>
+          </div>
+          <div class="stat">
+            <div class="num">150+</div>
+            <div class="lbl">projects reviewed / improved </div>
+          </div>
+          <div class="stat">
+            <div class="num">4.5★</div>
+            <div class="lbl">average student satisfaction </div>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="section" id="testimonials">
+      <div class="head">
+        <h2>Warm messages</h2>
+        
+      </div>
+      <div class="body">
+        <div class="quotes">
+          <div class="quote">
+            <p class="text">“You fixed the structure in one call. After that, writing felt 10x easier.”</p>
+            <div class="who">Student feedback · IA support</div>
+          </div>
+          <div class="quote">
+            <p class="text">“The edits were precise — not vague advice. I knew exactly what to change.”</p>
+            <div class="who">Student feedback · EE review</div>
+          </div>
+          <div class="quote">
+            <p class="text">“Diagrams + citations were messy. You cleaned it up and it finally looked professional.”</p>
+            <div class="who">Student feedback · Final polish</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="section" id="pricing">
+      <div class="head">
+        <h2>Pricing</h2>
+        
+      </div>
+
+      <div class="body">
+        <div class="pricingGrid">
+          <div class="panel">
+            <div class="phead">
+              <h3>Price List</h3>
+              <span>Currency: INR (₹)</span>
+            </div>
+            <div class="pbody">
+              <div class="tools">
+                <label class="search" for="searchInput" aria-label="Search price list">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M21 21l-4.3-4.3m1.3-5.2a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z" stroke="rgba(15,23,42,0.70)" stroke-width="1.6" stroke-linecap="round"/>
+                  </svg>
+                  <input id="searchInput" type="text" placeholder="Search: EE Economics, TOK, IA HL, CS Project, Micro..." autocomplete="off" />
+                </label>
+                <button class="btn" id="clearBtn" type="button" title="Clear search">Clear <small>(Esc)</small></button>
+                <button class="btn" id="expandAllBtn" type="button" title="Expand all sections">Expand All</button>
+                <button class="btn" id="collapseAllBtn" type="button" title="Collapse all sections">Collapse All</button>
+              </div>
+
+              <div class="no-results" id="noResults">
+                <strong>No direct match found.</strong>
+                <div style="margin-top:6px;">
+                  Other subjects/components: <strong>Discuss directly with us</strong>.
+                </div>
+              </div>
+
+              <div id="content"></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="phead">
+              <h3>Quick Summary</h3>
+              <span>Fast reference</span>
+            </div>
+            <div class="pbody">
+              <div class="kpi">
+                <div class="label">Extended Essay (listed subjects)</div>
+                <div class="value">₹15,000</div>
+              </div>
+              <div class="kpi">
+                <div class="label">TOK Essay</div>
+                <div class="value">₹12,000</div>
+              </div>
+              <div class="kpi">
+                <div class="label">Economics IA (single)</div>
+                <div class="value">₹7,000</div>
+              </div>
+              <div class="kpi">
+                <div class="label">Economics IA (All 3)</div>
+                <div class="value">₹18,000</div>
+              </div>
+              <div class="kpi">
+                <div class="label">CS IA (Project + Report)</div>
+                <div class="value">₹20,000</div>
+              </div>
+              <div class="kpi">
+                <div class="label">Search tips</div>
+                <div class="value">Try: <code>EE</code> <code>TOK</code> <code>HL</code> <code>Micro</code> <code>CS</code></div>
+              </div>
+
+              <div class="footerNote">
+                For unlisted subjects/components, pricing depends on scope and timeline and is discussed directly.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="contact">
+      <div class="head">
+        <h2>Contact us</h2>
+        <p>
+          Tap a button below to open WhatsApp. Send your subject, deadline, and current draft status (0% / rough / final).
+        </p>
+      </div>
+      <div class="body">
+        <div class="contactGrid">
+          <div class="contactCard">
+            <h3>Lakshya Arora</h3>
+            <p>Fast response for pricing, timelines, and what support makes sense for your case.</p>
+            <div class="waRow">
+              <a class="btn btnGreen" target="_blank"
+                 href="https://wa.me/918209338646?text=Hi%20Lakshya,%20I%20need%20help%20with%20my%20assignment.%20Subject:%20____%20Component:%20____%20Deadline:%20____%20Current%20status:%20____">
+                WhatsApp Lakshya
+              </a>
+            </div>
+          </div>
+
+          <div class="contactCard">
+            <h3>Sukriti Shukla</h3>
+            <p>Coordination, scheduling, and quick check on what package fits your scope.</p>
+            <div class="waRow">
+              <a class="btn btnGreen" target="_blank"
+                 href="https://wa.me/918218709184?text=Hi%20Sukriti,%20I%20need%20help%20with%20my%20assignment.%20Subject:%20____%20Component:%20____%20Deadline:%20____%20Current%20status:%20____">
+                WhatsApp Sukriti
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footerNote">
+          We can also work in “review-only” mode if you just want improvements and clear next steps.
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const DATA = [
+      {
+        id: "ee",
+        category: "Extended Essays (EE)",
+        subtitle: "All listed EEs are priced uniformly.",
+        badge: "₹15,000",
+        groups: [
+          { title: "EE Subjects", items: [
+            { name: "EE – Economics", price: 15000, tags: ["EE","Economics"] },
+            { name: "EE – Business Management", price: 15000, tags: ["EE","Business Management","BM"] },
+            { name: "EE – Mathematics", price: 15000, tags: ["EE","Mathematics","Math"] },
+            { name: "EE – Physics", price: 15000, tags: ["EE","Physics"] },
+            { name: "EE – Chemistry", price: 15000, tags: ["EE","Chemistry"] },
+            { name: "EE – Biology", price: 15000, tags: ["EE","Biology"] },
+            { name: "EE – History", price: 15000, tags: ["EE","History"] },
+            { name: "EE – English", price: 15000, tags: ["EE","English"] }
+          ] }
+        ]
+      },
+      {
+        id: "tok",
+        category: "Theory of Knowledge (TOK)",
+        subtitle: "TOK pricing for the listed component.",
+        badge: "₹12,000",
+        groups: [
+          { title: "TOK", items: [{ name: "TOK Essay", price: 12000, tags: ["TOK","Essay"] }] }
+        ]
+      },
+      {
+        id: "ias",
+        category: "Internal Assessments (IAs)",
+        subtitle: "Grouped by IB categories (Group 3, 4, 5).",
+        badge: "Section-wise",
+        groups: [
+          { title: "Group 3 — Economics", items: [
+            { name: "Economics IA – Microeconomics", price: 7000, tags: ["IA","Economics","Micro"] },
+            { name: "Economics IA – Macroeconomics", price: 7000, tags: ["IA","Economics","Macro"] },
+            { name: "Economics IA – Global Economics", price: 7000, tags: ["IA","Economics","Global"] },
+            { name: "Economics IA – Micro + Macro (Combo)", price: 13000, tags: ["IA","Economics","Combo","Micro","Macro"] },
+            { name: "Economics IA – All Three (Full Set)", price: 18000, tags: ["IA","Economics","Full Set","Micro","Macro","Global"] }
+          ]},
+          { title: "Group 3 — Business Management", items: [
+            { name: "Business Management IA – SL", price: 15000, tags: ["IA","Business Management","BM","SL"] },
+            { name: "Business Management IA – HL", price: 15000, tags: ["IA","Business Management","BM","HL"] }
+          ]},
+          { title: "Group 3 — History & Geography", items: [
+            { name: "History IA", price: 15000, tags: ["IA","History"] },
+            { name: "Geography IA", price: 15000, tags: ["IA","Geography"] }
+          ]},
+          { title: "Group 4 — Sciences (Physics / Chemistry / Biology)", items: [
+            { name: "Physics IA – SL", price: 15000, tags: ["IA","Physics","SL"] },
+            { name: "Physics IA – HL", price: 15000, tags: ["IA","Physics","HL"] },
+            { name: "Chemistry IA – SL", price: 15000, tags: ["IA","Chemistry","SL"] },
+            { name: "Chemistry IA – HL", price: 15000, tags: ["IA","Chemistry","HL"] },
+            { name: "Biology IA – SL", price: 15000, tags: ["IA","Biology","SL"] },
+            { name: "Biology IA – HL", price: 15000, tags: ["IA","Biology","HL"] }
+          ]},
+          { title: "Group 4 — Computer Science (Split)", items: [
+            { name: "Computer Science IA – Project (Code + Functionality)", price: 10000, tags: ["IA","Computer Science","CS","Project","Code"] },
+            { name: "Computer Science IA – Written Report", price: 12000, tags: ["IA","Computer Science","CS","Report"] },
+            { name: "Computer Science IA – Project + Report (Combo)", price: 20000, tags: ["IA","Computer Science","CS","Combo","Project","Report"] }
+          ]},
+          { title: "Group 5 — Mathematics (AA / AI)", items: [
+            { name: "Mathematics AA IA – SL", price: 15000, tags: ["IA","Mathematics","Math","AA","SL"] },
+            { name: "Mathematics AA IA – HL", price: 15000, tags: ["IA","Mathematics","Math","AA","HL"] },
+            { name: "Mathematics AI IA – SL", price: 15000, tags: ["IA","Mathematics","Math","AI","SL"] },
+            { name: "Mathematics AI IA – HL", price: 15000, tags: ["IA","Mathematics","Math","AI","HL"] }
+          ]}
+        ]
+      }
+    ];
+
+    const fmtINR = n => "₹" + n.toLocaleString("en-IN");
+    const norm = s => (s || "").toString().trim().toLowerCase();
+
+    const contentEl = document.getElementById("content");
+    const noResultsEl = document.getElementById("noResults");
+    const inputEl = document.getElementById("searchInput");
+    const clearBtn = document.getElementById("clearBtn");
+    const expandAllBtn = document.getElementById("expandAllBtn");
+    const collapseAllBtn = document.getElementById("collapseAllBtn");
+
+    function matches(item, q){
+      if(!q) return true;
+      const hay = norm(item.name + " " + (item.tags||[]).join(" "));
+      return hay.includes(q);
+    }
+
+    function render(queryRaw){
+      const q = norm(queryRaw);
+      contentEl.innerHTML = "";
+      let totalShown = 0;
+
+      DATA.forEach(section => {
+        const renderedGroups = [];
+
+        section.groups.forEach(group => {
+          const items = group.items.filter(it => matches(it, q));
+          if(items.length === 0) return;
+
+          totalShown += items.length;
+
+          renderedGroups.push(`
+            <div class="group-title">${group.title}</div>
+            <div class="cards">
+              ${items.map(it => `
+                <div class="card">
+                  <div class="left">
+                    <div class="title">${it.name}</div>
+                    <div class="meta">
+                      ${(it.tags||[]).slice(0,4).map(t => `<span class="pill">${t}</span>`).join("")}
+                    </div>
+                  </div>
+                  <div class="price">${fmtINR(it.price)}</div>
+                </div>
+              `).join("")}
+            </div>
+          `);
+        });
+
+        if(q && renderedGroups.length === 0) return;
+
+        const details = document.createElement("details");
+        details.className = "accordion";
+        details.id = `acc-${section.id}`;
+
+        const shouldOpen = (q && renderedGroups.length > 0) || (!q && section.id === "ee");
+        if(shouldOpen) details.setAttribute("open","");
+
+        details.innerHTML = `
+          <summary class="acc-head">
+            <div class="acc-title">
+              <strong>${section.category}</strong>
+              <span>${section.subtitle}</span>
+            </div>
+            <div class="acc-right">
+              <span class="badge">${section.badge}</span>
+              <span class="chev" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9l6 6 6-6" stroke="rgba(15,23,42,0.65)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+          </summary>
+          <div class="acc-body">${renderedGroups.join("")}</div>
+        `;
+        contentEl.appendChild(details);
+      });
+
+      noResultsEl.style.display = (q && totalShown === 0) ? "block" : "none";
+    }
+
+    inputEl.addEventListener("input", e => render(e.target.value));
+
+    clearBtn.addEventListener("click", () => {
+      inputEl.value = "";
+      inputEl.focus();
+      render("");
+    });
+
+    window.addEventListener("keydown", (e) => {
+      if(e.key === "Escape"){
+        inputEl.value = "";
+        render("");
+        inputEl.blur();
+      }
+    });
+
+    function setAll(open){
+      document.querySelectorAll("details.accordion").forEach(d => {
+        if(open) d.setAttribute("open","");
+        else d.removeAttribute("open");
+      });
+    }
+    expandAllBtn.addEventListener("click", () => setAll(true));
+    collapseAllBtn.addEventListener("click", () => setAll(false));
+
+    render("");
+  </script>
+</body>
+</html>
